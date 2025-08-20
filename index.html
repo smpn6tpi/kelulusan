@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PENGUMUMAN KELULUSAN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html{
+background:white;
+min-height:100%;
+position:relative;
+}
+body{
+background:white;
+color:#333;
+font-family: Arial, Helvetica, sans-serif;
+margin:0 0 36px;
+}
+.main{
+max-width:720px;
+margin:auto;
+}
+header{
+line-height:60px;
+text-align:center;
+}
+.logo{
+background:#001f3f;
+font-size:2em;
+font-weight:bold;
+margin:0;
+}
+header a, header span{
+color:white;
+text-decoration:none;
+}
+header span:hover{
+color:#ff851b;
+}
+.nav-bottom ul{
+list-style:none;
+margin:0;
+padding:0;
+}
+.nav-bottom li{
+display:inline-block;
+}
+footer{
+bottom:0;
+left:0;
+line-height:26px;
+position:absolute;
+width:100%;
+background:#001f3f;
+clear:both;
+color:white;
+display:block;
+text-align:center;
+}
+footer a{
+color:white;
+}
+input[type=submit],
+button{
+padding:5px;
+margin:5px 0;
+width:100%;
+display:block;
+}
+input[type=text],
+input[type=password]{
+width:100%;
+padding:5px;
+box-sizing:border-box;
+}
+@media only screen and (max-width: 740px){
+.main{
+margin:0 10px;
+}
+</style>
+</head>
+<body>
+<header><div class='logo'><span>SMPN 6 Tanjungpinang</span></div></header>
+<div class="main">
+<h2 style="text-align:center;">Pengumuman Kelulusan</h2>
+
+<div id="respon"><p style="text-align:center;">Masukkan NISN</p></div>
+
+<form style="max-width:320px; margin:auto;" id="form-kelulusan">
+<fieldset>
+<legend><label for="nisn">NISN</label></legend>
+<input type="text" name="nisn" id="nisn" placeholder="Masukan NISN" required/>
+</fieldset>
+
+<input type="submit" name="cek-kelulusan" value="Cek Kelulusan"/>
+</form>
+
+</div>
+<footer class="nav-bottom">
+<ul>
+<li>&copy; <a href="https://www.smpn6tpi.sch.id">smpn6tpi.sch.id</a></li>
+</ul>
+</footer>
+<script>
+let formkelulusan = document.getElementById("form-kelulusan");
+formkelulusan.addEventListener(
+"submit", function(event){
+event.preventDefault();
+document.getElementById("respon").innerHTML = "<p style=\"text-align:center;\">Memuat...</p>";
+var nisn = document.getElementById("nisn").value;
+
+var output = new XMLHttpRequest();
+output.onreadystatechange = function(){
+if(this.readyState == 4 && this.status == 200){
+document.getElementById("form-kelulusan").style.display="none";
+document.getElementById("respon").innerHTML = this.responseText;
+
+}
+};
+output.open("GET", "info.txt?nisn="+nisn, true);
+output.send();
+
+}
+);
+</script>
+</body>
+</html>
